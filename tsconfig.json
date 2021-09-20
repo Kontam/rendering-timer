@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2015", 
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "outDir": "./lib",
+    "strict": true,
+    "rootDir": "src",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true 
+  },
+  "include": ["src/**/*"],
+  "exclude": []
+}
