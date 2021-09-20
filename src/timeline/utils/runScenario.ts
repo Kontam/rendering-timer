@@ -6,7 +6,7 @@ const width = 1280;
 const height = 900;
 
 export async function runScenario(sc: string, lap: number, names: string[]) {
-  const module = await import(path.resolve(__dirname, `../../../${sc}`));
+  const module = await import(path.resolve(sc));
   const scenario: Scenario = module.default;
   if (names.length > 0 && !names.includes(scenario.name)) {
     return;

@@ -10,21 +10,25 @@ import {
 } from "../utils/constants";
 import { runScenario } from "./utils/runScenario";
 import arg from "arg";
+import { getProjectRootPath } from "../utils/getProjectRootPath";
 
-const TIMELINE_ARCHIVE_DIR = `${ARCHIVE_DIR}/${TIMELINE_DIR}`;
+const pjRootPath = getProjectRootPath(__dirname);
+const ABSOLUTE_TIMELINE_ARCHIVE_DIR = `${pjRootPath}/${ARCHIVE_DIR}/${TIMELINE_DIR}`;
+const ABSOLUTE_TIMELINE_DIR = `${pjRootPath}/${TIMELINE_DIR}`;
+const ABSOLUTE_SCENARIO_DIR = `${pjRootPath}/${SCENARIO_DIR}`;
 
 export const runAudit = async (args: arg.Result<any>) => {
   const times = args["--times"] || args.times || 1;
   const names = args["--scenario"] ? [args["--scinario"]] : [];
 
-  if (fs.existsSync(TIMELINE_ARCHIVE_DIR)) {
-    fs.ensureDir(TIMELINE_ARCHIVE_DIR);
+  if (fs.existsSync(ABSOLUTE_TIMELINE_ARCHIVE_DIR)) {
+    fs.ensureDir(ABSOLUTE_TIMELINE_ARCHIVE_DIR);
     await fs.move(
-      TIMELINE_DIR,
-      `${TIMELINE_ARCHIVE_DIR}/${format(new Date(), TIMESTAMP_FORMAT)}`
+      ABSOLUTE_TIMELINE_DIR,
+      `${ABSOLUTE_TIMELINE_ARCHIVE_DIR}/${format(new Date(), TIMESTAMP_FORMAT)}`
     );
   }
-  const scenarios: string[] = getScenarios(SCENARIO_DIR);
+  const scenarios: string[] = getScenarios(ABSOLUTE_SCENARIO_DIR);
   const asyncFuncs: Array<() => Promise<void>> = [];
   scenarios.forEach((sc) => {
     for (let i = 0; i < times; i++) {

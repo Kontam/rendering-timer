@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import { glob } from "glob";
 import { Command } from "../../types";
+import { getProjectRootPath } from "../../utils/getProjectRootPath";
 
 export const initCommand: Command = {
   name: "init",
@@ -29,7 +30,7 @@ export default new Scenario({
 })
 `;
 
-    fs.writeFileSync('scenario/example.ts', example);
+    fs.writeFileSync(`${getProjectRootPath(__dirname)}/scenario/example.ts`, example);
 
     console.log("scenario/example.ts was created.")
   },
