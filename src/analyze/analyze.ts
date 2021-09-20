@@ -9,15 +9,20 @@ import {
 import { analyzeTimelines } from "./utils/analyzeTimelines";
 import { AnalyzeOutput } from "./output/analyzeOutput";
 import { AnalyzeOptions } from "../cli/commands/analyzeCommand";
+import { getProjectRootPath } from "../utils/getProjectRootPath";
+
+const ABSOLUTE_TIMELINE_DIR = `${getProjectRootPath(__dirname)}/${TIMELINE_DIR}`;
+const ABSOLUTE_OUT_DIR_DIFF = `${getProjectRootPath(__dirname)}/${OUT_DIR_DIFF}`;
+const ABSOLUTE_OUT_DIR_DIST= `${getProjectRootPath(__dirname)}/${OUT_DIR_DIST}`;
 
 export const runAnalyze = async (args: AnalyzeOptions) => {
-  const jsons = getTimelines(TIMELINE_DIR);
+  const jsons = getTimelines(ABSOLUTE_TIMELINE_DIR);
   archiveFiles([OUT_DIR_DIFF, OUT_DIR_DIST], ARCHIVE_DIR);
   const results = await analyzeTimelines(
     jsons,
-    TIMELINE_DIR,
-    OUT_DIR_DIST,
-    OUT_DIR_DIFF
+    ABSOLUTE_TIMELINE_DIR,
+    ABSOLUTE_OUT_DIR_DIST,
+    ABSOLUTE_OUT_DIR_DIFF
   );
 
   const analyzeOutput = new AnalyzeOutput(results);

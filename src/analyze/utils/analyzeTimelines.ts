@@ -14,7 +14,7 @@ export async function analyzeTimelines(jsons: string[],timelineDir: string, dist
       .replace(timelineDir, diffDir)
       .replace(/\.json$/, '');
 
-    const singleData = await analyzeJson(path.resolve(__dirname, `../../../${jsonPath}`), outDirDist, outDirDiff);
+    const singleData = await analyzeJson(jsonPath, outDirDist, outDirDiff);
 
     const exists = results.find(result => result.name === scinarioName);
     if (exists) {
