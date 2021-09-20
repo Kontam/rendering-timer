@@ -8,12 +8,12 @@ export const helpCommand: Command & ExMethod = {
   name: "help",
   optionTypes: {},
   helpText: "\n"
-  + "Syntax:	rendered [command] [options]\n\n"
+  + "Syntax:	rtimer [command] [options]\n\n"
   + "Examples:\n"
-  +	"    rendered run\n"
-  + "    rendered audit\n"
-  + "    rendered analyze\n"
-  + "    rendered help\n\n"
+  +	"    rtimer run\n"
+  + "    rtimer audit\n"
+  + "    rtimer analyze\n"
+  + "    rtimer help\n\n"
   + "Commands:",
   exec: async function () {
     console.log(this.helpText);

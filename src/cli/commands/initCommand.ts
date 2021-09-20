@@ -14,7 +14,7 @@ export const initCommand: Command = {
     }
 
     fs.ensureDir('scenario');
-    const example = `import { Scenario } from 'rendered';
+    const example = `import { Scenario } from 'rendering-timer';
 import { Page } from 'puppeteer';
 
 export default new Scenario({

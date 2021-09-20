@@ -8,7 +8,7 @@ export function checkConfig(config: any, configType: ConfigType) {
   for (const prop in config) {
     if (!Object.prototype.hasOwnProperty.call(configType, prop)) {
       throw new Error(
-        `invalid property detected in rendered.config.json: ${prop}`
+        `invalid property detected in rtimer.config.json: ${prop}`
       );
     }
     // @ts-ignore
