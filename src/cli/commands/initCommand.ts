@@ -15,14 +15,13 @@ export const initCommand: Command = {
     }
 
     fs.ensureDir('scenario');
-    const example = `import { Scenario } from 'rendering-timer';
-import { Page } from 'puppeteer';
+    const example = `const { Scenario } = require('rendering-timer');
 
-export default new Scenario({
+module.exports = new Scenario({
   name: 'exampleScenario',
   outDir: 'example/moreInfo',
   startUrl: 'https://example.com/',
-  triger: async (page: Page) => {
+  triger: async (page) => {
     const link = await page.$('a');
     if(!link) return console.error('link was not found')
     await link.click();
@@ -30,7 +29,7 @@ export default new Scenario({
 })
 `;
 
-    fs.writeFileSync(`${getProjectRootPath(__dirname)}/scenario/example.ts`, example);
+    fs.writeFileSync(`${getProjectRootPath(__dirname)}/scenario/example.js`, example);
 
     console.log("scenario/example.ts was created.")
   },
