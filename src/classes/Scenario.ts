@@ -1,6 +1,8 @@
 import {Page} from "puppeteer";
 import fs from "fs-extra";
 import path from "path";
+import { getProjectRootPath } from "../utils/getProjectRootPath";
+import { TIMELINE_DIR } from "../utils/constants";
 
 export type ScenarioParams = {
   outDir: string;
@@ -10,6 +12,8 @@ export type ScenarioParams = {
   triger?: (page: Page) => Promise<void> | void;
 }
 
+const ABSOLUTE_TIMELINE_DIR = `${getProjectRootPath(__dirname)}/${TIMELINE_DIR}`;
+
 export class Scenario {
   outDir: string;
   startUrl: string;
@@ -18,7 +22,7 @@ export class Scenario {
   childTriger: ScenarioParams["triger"];
 
   constructor(params: ScenarioParams) {
-    this.outDir = path.resolve(__dirname, "../../timeline", params.outDir);
+    this.outDir = ABSOLUTE_TIMELINE_DIR;
     this.startUrl = params.startUrl;
     this.name = params.name;
     this.childPrepare = params.prepare;
