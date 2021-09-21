@@ -1,6 +1,6 @@
 {
   "name": "rendering-timer",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "description": "Verify rendering speed of web site.",
   "bin": {
     "rtimer": "lib/cli/cli.js"
