@@ -22,7 +22,7 @@ export class Scenario {
   childTriger: ScenarioParams["triger"];
 
   constructor(params: ScenarioParams) {
-    this.outDir = ABSOLUTE_TIMELINE_DIR;
+    this.outDir = path.resolve(ABSOLUTE_TIMELINE_DIR, params.outDir);
     this.startUrl = params.startUrl;
     this.name = params.name;
     this.childPrepare = params.prepare;
