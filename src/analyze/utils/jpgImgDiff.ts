@@ -36,8 +36,11 @@ export async function imgDiff(
     }
     return result;
   } catch (err) {
-    console.error(err.message);
-    console.error(`SKIPPED!! :${imgPath1} and ${imgPath2}`); 
+    // if image size is not same, consider as their is difference.
+    /*
+      console.error(err.message);
+      console.error(`SKIPPED!! :${imgPath1} and ${imgPath2}`); 
+    */
     return 1; // 画像サイズ不正の場合はレンダリング途中の場合が多い傾向があり、暫定で差分ありとして扱う
   }
 }
