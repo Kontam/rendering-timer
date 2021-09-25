@@ -27,6 +27,17 @@ Run Rtimer. Then, you can see report on your console.
 npx rtimer audit
 ```
 
+## How to use it?
+
+1. Create scenario files.
+2. Create rtimer.config.json if you need.
+3. Run audit command to correct performance timeline files.
+4. Run analyze command to analyze performance from performance timeline files.
+
+## Scenario files
+rendering-timer need `scenario files` to audit performance.
+
+
 ## CLI Usage
 
 ```sh
