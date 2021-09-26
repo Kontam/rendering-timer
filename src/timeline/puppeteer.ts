@@ -21,7 +21,7 @@ export const runAudit = async (args: arg.Result<any>) => {
   const times = args["--times"] || args.times || 1;
   const names = args["--scenario"] ? [args["--scinario"]] : [];
 
-  if (fs.existsSync(ABSOLUTE_TIMELINE_ARCHIVE_DIR)) {
+  if (fs.existsSync(ABSOLUTE_TIMELINE_DIR)) {
     fs.ensureDir(ABSOLUTE_TIMELINE_ARCHIVE_DIR);
     await fs.move(
       ABSOLUTE_TIMELINE_DIR,
