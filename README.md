@@ -28,6 +28,8 @@ Run Rtimer. Then, you can see report on your console.
 npx rtimer audit
 ```
 
+![resultCap](https://user-images.githubusercontent.com/28699942/134814855-b104888a-e7ce-468a-b565-880484767acf.png)
+
 ## <a name='Howtouseit'></a>How to use it?
 
 1. Create scenario files.
