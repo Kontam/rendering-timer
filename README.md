@@ -3,12 +3,13 @@
 Provides tool for audit rendering performance.  
 It doesn't require any modification for target Web site. 
 
-## ToC
-<!-- toc -->
+## <a name='ToC'></a>ToC
+* [Getting started](#Gettingstarted)
+* [How to use it?](#Howtouseit)
+* [Scenario files](#Scenariofiles)
+* [CLI Usage](#CLIUsage)
 
-<!-- tocstop -->
-
-## Getting started
+## <a name='Gettingstarted'></a>Getting started
 Execute following command.
 
 ```sh
@@ -27,14 +28,14 @@ Run Rtimer. Then, you can see report on your console.
 npx rtimer audit
 ```
 
-## How to use it?
+## <a name='Howtouseit'></a>How to use it?
 
 1. Create scenario files.
 2. Create rtimer.config.json if you need.
 3. Run audit command to correct performance timeline files.
 4. Run analyze command to analyze performance from performance timeline files.
 
-## Scenario files
+## <a name='Scenariofiles'></a>Scenario files
 rendering-timer need `scenario files` to audit performance.
 
 ```js
@@ -57,34 +58,34 @@ module.exports = new Scenario({
 - `prepare` is callback function (optional). This function will be called before `triger` callback. Usualy, it is useful for authentication.
 - `triger` is callback function.  rendering-timer lunch puppeteer with `startUrl` then, call `prepare` callback and `triger` callback. After exit `triger` callback, rendering-timer start to collect performance timeline.
 
-## CLI Usage
+## <a name='CLIUsage'></a>CLI Usage
 
 ```sh
 npx rtimer <command> [options]
 ```
 
-### `audit` command
+### <a name='auditcommand'></a>`audit` command
 
 Start performance audit with puppeteer, and create performance timiline files for each scenarios.
 You need to create `scenario files` to run this command.
 - `--times` is option for specify number of trials. Analyze result contains avarage of them.
 - `--name` is option to audit with single scenario file.
 
-### `analyze` command
+### <a name='analyzecommand'></a>`analyze` command
 
 Start analyze performance timeline files.
 You need to run `audit` command to create performance timeline files before running this command.
 - `--output` is option for specify output file type. ("csv" | "json")
 
-### `run` command
+### <a name='runcommand'></a>`run` command
 
 Run `audit` command then, run `analyze` command.  
 Options for `audit` and `analyze` can be specified.
 
-### `init` command
+### <a name='initcommand'></a>`init` command
 
 Create example scenario file.
 
-### `help` command
+### <a name='helpcommand'></a>`help` command
 
 Show help text.
