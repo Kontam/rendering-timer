@@ -37,6 +37,25 @@ npx rtimer audit
 ## Scenario files
 rendering-timer need `scenario files` to audit performance.
 
+```js
+const { Scenario } = require('rendering-timer');
+
+module.exports = new Scenario({
+  name: 'exampleScenario',
+  outDir: 'example/moreInfo',
+  startUrl: 'https://example.com/',
+  triger: async (page) => {
+    const link = await page.$('a');
+    if(!link) return console.error('link was not found')
+    await link.click();
+  } 
+})
+```
+- `name` is option to specify scenario. It is used to audit single scenario with `--name` option of CLI command.
+- `outDir` is option to specify path to output performance timeline json. In this example's case, output file will be stored in `[PJroot]/timeline/example/moreInfo`.
+- `startUrl` is start point of audit.
+- `prepare` is callback function (optional). This function will be called before `triger` callback. Usualy, it is useful for authentication.
+- `triger` is callback function.  rendering-timer lunch puppeteer with `startUrl` then, call `prepare` callback and `triger` callback. After exit `triger` callback, rendering-timer start to collect performance timeline.
 
 ## CLI Usage
 
@@ -48,15 +67,19 @@ npx rtimer <command> [options]
 
 Start performance audit with puppeteer, and create performance timiline files for each scenarios.
 You need to create `scenario files` to run this command.
+- `--times` is option for specify number of trials. Analyze result contains avarage of them.
+- `--name` is option to audit with single scenario file.
 
 ### `analyze` command
 
 Start analyze performance timeline files.
 You need to run `audit` command to create performance timeline files before running this command.
+- `--output` is option for specify output file type. ("csv" | "json")
 
 ### `run` command
 
-Run `audit` command then, run `analyze` command.
+Run `audit` command then, run `analyze` command.  
+Options for `audit` and `analyze` can be specified.
 
 ### `init` command
 
