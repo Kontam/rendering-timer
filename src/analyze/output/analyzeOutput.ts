@@ -27,11 +27,15 @@ export class AnalyzeOutput {
 
   async outputCsv() {
     const csv = await convertToCSV(this.data);
-    fs.writeFileSync(`${this.outputDirPath}/${this.csvFileName}`, csv); 
+    const filePath = `${this.outputDirPath}/${this.csvFileName}`;
+    fs.writeFileSync(filePath, csv); 
+    console.log(`${filePath}/${this.csvFileName} was created.`)
   }
 
   async outputJson() {
     const json = this.data;
-    fs.writeFileSync(`${this.outputDirPath}/${this.jsonFileName}`, JSON.stringify(json));
+    const filePath = `${this.outputDirPath}/${this.jsonFileName}`;
+    fs.writeFileSync(filePath, JSON.stringify(json));
+    console.log(`${filePath}/${this.jsonFileName} was created.`)
   }
 }
