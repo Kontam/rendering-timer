@@ -1,14 +1,13 @@
 import { ResultData } from "../../types";
-import { JsonAnalyzer } from "../analyzer/jsonAnalyzer";
+import { createJsonAnalyzer } from "../analyzer/jsonAnalyzer";
 
 export async function analyzeJson(
   jsonPath: string,
   outDirDist: string,
   outDirDiff: string
 ): Promise<ResultData> {
-  const analyzer = new JsonAnalyzer(jsonPath);
+  const analyzer = createJsonAnalyzer(jsonPath);
   analyzer.outputSnapshotImage(outDirDist);
-
   const completeRender = await analyzer.analyzeCompleteRender(
     outDirDist,
     outDirDiff

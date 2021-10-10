@@ -3,7 +3,7 @@ import fs from "fs-extra";
 import { imgDiff } from "../utils/jpgImgDiff";
 import { syncronize } from "../../utils/syncronize";
 
-export class JsonAnalyzer {
+class JsonAnalyzer {
   perfJson: any;
   snapshots: SnapShot[];
 
@@ -61,4 +61,8 @@ export class JsonAnalyzer {
     });
     return clickEvents
   }
+}
+
+export function createJsonAnalyzer(jsonPath: string) {
+  return new JsonAnalyzer(jsonPath);
 }
