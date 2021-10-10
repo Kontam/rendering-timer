@@ -5,7 +5,7 @@ import { createOutputDir } from "../utils/createOutputDir";
 import fs from "fs-extra";
 import { outputResuts } from "../utils/outputResults";
 
-export class AnalyzeOutput {
+class AnalyzeOutput {
   data: ScenarioResult[];
   outputDirPath: string;
   csvFileName: string;
@@ -38,4 +38,8 @@ export class AnalyzeOutput {
     fs.writeFileSync(filePath, JSON.stringify(json));
     console.log(`${filePath}/${this.jsonFileName} was created.`)
   }
+}
+
+export function createAnalyzeOutput(data: ScenarioResult[]) {
+  return new AnalyzeOutput(data);
 }
