@@ -16,25 +16,38 @@ describe("AnalyzeOutput", () => {
     advanceTo(); // Mocking Date
     mockFs.writeFileSync.mockClear();
   });
-  describe("outputCSV", () => {
-    describe("when data was passed", () => {
-      beforeEach(async () => {
-        data = [{ name: "test", data: [{ duration: 1 }] }];
-        analyzer = new AnalyzeOutput(data, mockFs as any as typeof fs);
-        await analyzer.createOutputDir();
-        await analyzer.outputCsv();
+  describe("output files creation", () => {
+    describe("output csv", () => {
+      describe("when data was passed", () => {
+        beforeEach(async () => {
+          data = [{ name: "test", data: [{ duration: 1 }] }];
+          analyzer = new AnalyzeOutput(data, mockFs as any as typeof fs);
+          await analyzer.createOutputDir();
+          await analyzer.outputCsv();
+        });
+        test("output directory path includes timestamp", () => {
+          const ex = expect.stringContaining(
+            format(new Date(), TIMESTAMP_FORMAT)
+          );
+          expect(mockFs.writeFileSync.mock.calls[0][0]).toEqual(ex);
+        });
+        test("created csv data will be written to file", () => {
+          const ex = expect.stringContaining("test,1,1");
+          expect(mockFs.writeFileSync.mock.calls[0][1]).toEqual(ex);
+        });
       });
-      test("output directory path includes timestamp", () => {
-        const ex = expect.stringContaining(
-          format(new Date(), TIMESTAMP_FORMAT)
-        );
-        expect(mockFs.writeFileSync.mock.calls[0][0]).toEqual(ex);
-      });
-      test("created csv data will be written", () => {
-        const ex = expect.stringContaining(
-          "test,1,1"
-        );
-        expect(mockFs.writeFileSync.mock.calls[0][1]).toEqual(ex);
+    });
+    describe("output json", () => {
+      describe("when data was passed", () => {
+        beforeEach(async () => {
+          data = [{ name: "test", data: [{ duration: 1 }] }];
+          analyzer = new AnalyzeOutput(data, mockFs as any as typeof fs);
+          await analyzer.outputJson();
+        });
+        test("created json data will be written to file", () => {
+          const ex = expect.stringContaining(JSON.stringify(data));
+          expect(mockFs.writeFileSync.mock.calls[0][1]).toEqual(ex);
+        });
       });
     });
   });
