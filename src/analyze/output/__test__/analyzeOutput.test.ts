@@ -7,6 +7,7 @@ import { ScenarioResult } from "../../../types";
 
 const mockFs = {
   writeFileSync: jest.fn(),
+  ensureDir: jest.fn(),
 };
 
 describe("AnalyzeOutput", () => {
@@ -15,8 +16,23 @@ describe("AnalyzeOutput", () => {
   beforeEach(() => {
     advanceTo(); // Mocking Date
     mockFs.writeFileSync.mockClear();
+    mockFs.ensureDir.mockClear();
   });
   describe("output files creation", () => {
+    describe("create directory for output", () => {
+        beforeEach(async () => {
+          data = [{ name: "test", data: [{ duration: 1 }] }];
+          analyzer = new AnalyzeOutput(data, mockFs as any as typeof fs);
+          await analyzer.createOutputDir();
+        });
+        test("output directory path includes timestamp", () => {
+          const ex = expect.stringContaining(
+            format(new Date(), TIMESTAMP_FORMAT)
+          );
+          expect(mockFs.ensureDir).toBeCalledWith(ex);
+        });
+    });
+
     describe("output csv", () => {
       describe("when data was passed", () => {
         beforeEach(async () => {
@@ -25,7 +41,7 @@ describe("AnalyzeOutput", () => {
           await analyzer.createOutputDir();
           await analyzer.outputCsv();
         });
-        test("output directory path includes timestamp", () => {
+        test("output path includes timestamp", () => {
           const ex = expect.stringContaining(
             format(new Date(), TIMESTAMP_FORMAT)
           );
@@ -42,7 +58,14 @@ describe("AnalyzeOutput", () => {
         beforeEach(async () => {
           data = [{ name: "test", data: [{ duration: 1 }] }];
           analyzer = new AnalyzeOutput(data, mockFs as any as typeof fs);
+          await analyzer.createOutputDir();
           await analyzer.outputJson();
+        });
+        test("output path includes timestamp", () => {
+          const ex = expect.stringContaining(
+            format(new Date(), TIMESTAMP_FORMAT)
+          );
+          expect(mockFs.writeFileSync.mock.calls[0][0]).toEqual(ex);
         });
         test("created json data will be written to file", () => {
           const ex = expect.stringContaining(JSON.stringify(data));

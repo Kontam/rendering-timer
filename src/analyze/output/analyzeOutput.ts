@@ -1,7 +1,7 @@
 import { ScenarioResult } from "../../types";
 import { OUTPUT_DIR } from "../../utils/constants";
 import { convertToCSV } from "./functions/convertToCSV";
-import { createOutputDir } from "./functions/createOutputDir";
+import { createOutputDirPath } from "./functions/createOutputDirPath";
 import fs from "fs-extra";
 import { outputResuts } from "./functions/outputResults";
 
@@ -20,7 +20,8 @@ export class AnalyzeOutput {
   }
 
   async createOutputDir() {
-    this.outputDirPath = await createOutputDir(OUTPUT_DIR);
+    this.outputDirPath = await createOutputDirPath(OUTPUT_DIR);
+    await this.fs.ensureDir(this.outputDirPath); 
   }
 
   outputConsole() {
