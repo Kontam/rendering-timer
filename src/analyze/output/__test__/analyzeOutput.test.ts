@@ -30,6 +30,12 @@ describe("AnalyzeOutput", () => {
         );
         expect(mockFs.writeFileSync.mock.calls[0][0]).toEqual(ex);
       });
+      test("created csv data will be written", () => {
+        const ex = expect.stringContaining(
+          "test,1,1"
+        );
+        expect(mockFs.writeFileSync.mock.calls[0][1]).toEqual(ex);
+      });
     });
   });
 });
