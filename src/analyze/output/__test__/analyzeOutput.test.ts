@@ -47,6 +47,10 @@ describe("AnalyzeOutput", () => {
           );
           expect(mockFs.writeFileSync.mock.calls[0][0]).toEqual(ex);
         });
+        test(".csv file will be outputted", () => {
+          const ex = expect.stringContaining(".csv");
+          expect(mockFs.writeFileSync.mock.calls[0][0]).toEqual(ex);
+        });
         test("created csv data will be written to file", () => {
           const ex = expect.stringContaining("test,1,1");
           expect(mockFs.writeFileSync.mock.calls[0][1]).toEqual(ex);
@@ -103,6 +107,10 @@ describe("AnalyzeOutput", () => {
         test("created json data will be written to file", () => {
           const ex = expect.stringContaining(JSON.stringify(data));
           expect(mockFs.writeFileSync.mock.calls[0][1]).toEqual(ex);
+        });
+        test(".json file will be outputted", () => {
+          const ex = expect.stringContaining(".json");
+          expect(mockFs.writeFileSync.mock.calls[0][0]).toEqual(ex);
         });
       });
       describe("when 3 time's data was passed", () => {
