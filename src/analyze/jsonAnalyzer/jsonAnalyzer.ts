@@ -3,12 +3,18 @@ import fs from "fs-extra";
 import { imgDiff } from "./functions/jpgImgDiff";
 import { syncronize } from "../../utils/syncronize";
 
-class JsonAnalyzer {
+export type ImgDiffFunc = (imgPath1: string,
+  imgPath2: string,
+  diffImagePath?: string) => Promise<number>;
+
+export class JsonAnalyzer {
   perfJson: any;
   snapshots: SnapShot[];
+  imgDiffFunc: ImgDiffFunc;
 
-  constructor(jsonPath: string) {
-    this.perfJson = require(jsonPath);
+  constructor(perfJson: any, imgDiffFunc: ImgDiffFunc ) {
+    this.imgDiffFunc = imgDiffFunc;
+    this.perfJson = perfJson;
     this.snapshots = this.perfJson.traceEvents.filter((data: any) => {
       if ('snapshot' in data.args) {
         return data;
@@ -34,7 +40,7 @@ class JsonAnalyzer {
     // 最後の１枚と画像ファイルを後ろから順番に比較
     const asyncFuncs = this.snapshots.map((_, index) => async () => {
       const currentIndex = finalIndex - index;
-      const result = await imgDiff(
+      const result = await this.imgDiffFunc(
         final,
         `${outDirDist}/${currentIndex}.jpeg`,
         `${outDirDiff}/${finalIndex}-${currentIndex}.jpeg`,
@@ -63,6 +69,6 @@ class JsonAnalyzer {
   }
 }
 
-export function createJsonAnalyzer(jsonPath: string) {
-  return new JsonAnalyzer(jsonPath);
+export function createJsonAnalyzer(perfJson: any) {
+  return new JsonAnalyzer(perfJson, imgDiff);
 }

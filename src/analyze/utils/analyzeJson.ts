@@ -6,7 +6,8 @@ export async function analyzeJson(
   outDirDist: string,
   outDirDiff: string
 ): Promise<ResultData> {
-  const analyzer = createJsonAnalyzer(jsonPath);
+  const json = require(jsonPath);
+  const analyzer = createJsonAnalyzer(json);
   analyzer.outputSnapshotImage(outDirDist);
   const completeRender = await analyzer.analyzeCompleteRender(
     outDirDist,
