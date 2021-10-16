@@ -1,6 +1,6 @@
 import { ClickEvent, SnapShot } from "../../types";
 import fs from "fs-extra";
-import { imgDiff } from "../utils/jpgImgDiff";
+import { imgDiff } from "./functions/jpgImgDiff";
 import { syncronize } from "../../utils/syncronize";
 
 class JsonAnalyzer {

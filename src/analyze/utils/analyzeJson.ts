@@ -1,5 +1,5 @@
 import { ResultData } from "../../types";
-import { createJsonAnalyzer } from "../analyzer/jsonAnalyzer";
+import { createJsonAnalyzer } from "../jsonAnalyzer/jsonAnalyzer";
 
 export async function analyzeJson(
   jsonPath: string,
