@@ -52,7 +52,7 @@ export class JsonAnalyzer {
     });
   
     await syncronize(asyncFuncs);
-    const completeRender = firstMismatchedIndex === -1 
+    const completeRender = firstMismatchedIndex === this.snapshots.length - 1
      ? this.snapshots[this.snapshots.length - 1] // 全ての画像で差分が出たら最後のsnapshotと比較
      : this.snapshots[firstMismatchedIndex + 1];
     
