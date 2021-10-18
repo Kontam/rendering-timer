@@ -42,6 +42,17 @@ describe("jsonAnalyzer", () => {
           );
         });
       });
+      describe("when there is no diff", () => {
+        let analyzer: JsonAnalyzer;
+        beforeEach(() => {
+          analyzer = new JsonAnalyzer(fixture, mockImgDiffFuncCreator(100));
+        });
+        test("return snapshot json data of first index", async () => {
+          expect(await analyzer.analyzeCompleteRender("a", "b")).toBe(
+            fixture.traceEvents[0]
+          );
+        });
+      });
     });
   });
 });
