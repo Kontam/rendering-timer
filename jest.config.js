@@ -2,5 +2,6 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  setupFiles: ["jest-date-mock"]
+  setupFiles: ["jest-date-mock"],
+  testMatch: [ "**/__tests__/**/*.test.[jt]s?(x)" ]
 };

@@ -1,6 +1,6 @@
 import { advanceTo } from "jest-date-mock";
 import fs from "fs-extra";
-import { createOutputDir } from "../createOutputDir";
+import { createOutputDirPath } from "../functions/createOutputDirPath";
 import { format } from "date-fns";
 import { TIMESTAMP_FORMAT } from "../../../utils/constants";
 
@@ -10,10 +10,9 @@ describe("createOutputDir", () => {
   beforeEach(() => {
     advanceTo(); // Mocking Date
     (fs.move as jest.Mock).mockClear();
-    createOutputDir(outDirName);
   });
-  test("output directory path includes timestamp", () => {
+  test("output directory path includes timestamp", async () => {
     const ex = expect.stringContaining(format(new Date(), TIMESTAMP_FORMAT))
-    expect((fs.ensureDir as jest.Mock)).toBeCalledWith(ex);
+    expect(await createOutputDirPath(outDirName)).toEqual(ex);
   })
 })
