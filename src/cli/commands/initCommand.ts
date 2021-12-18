@@ -31,6 +31,6 @@ module.exports = new Scenario({
 
     fs.writeFileSync(`${getProjectRootPath(__dirname)}/scenario/example.js`, example);
 
-    console.log("scenario/example.ts was created.")
+    console.log("scenario/example.js was created.")
   },
 };
