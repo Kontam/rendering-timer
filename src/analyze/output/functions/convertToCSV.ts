@@ -1,4 +1,4 @@
-import {ScenarioResult} from '../../types';
+import {ScenarioResult} from '../../../types';
 import stringify from 'csv-stringify';
 
 export function convertToCSV(results: ScenarioResult[]): Promise<string> {

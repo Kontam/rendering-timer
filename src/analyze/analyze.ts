@@ -7,7 +7,7 @@ import {
   TIMELINE_DIR,
 } from "../utils/constants";
 import { analyzeTimelines } from "./utils/analyzeTimelines";
-import { AnalyzeOutput } from "./output/analyzeOutput";
+import { createAnalyzeOutput } from "./output/analyzeOutput";
 import { AnalyzeOptions } from "../cli/commands/analyzeCommand";
 import { getProjectRootPath } from "../utils/getProjectRootPath";
 
@@ -25,7 +25,7 @@ export const runAnalyze = async (args: AnalyzeOptions) => {
     ABSOLUTE_OUT_DIR_DIFF
   );
 
-  const analyzeOutput = new AnalyzeOutput(results);
+  const analyzeOutput = createAnalyzeOutput(results);
   analyzeOutput.outputConsole();
 
   if (!args["--output"] && !args.output) return;
