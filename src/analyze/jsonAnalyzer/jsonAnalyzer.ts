@@ -1,14 +1,20 @@
 import { ClickEvent, SnapShot } from "../../types";
 import fs from "fs-extra";
-import { imgDiff } from "../utils/jpgImgDiff";
+import { imgDiff } from "./functions/jpgImgDiff";
 import { syncronize } from "../../utils/syncronize";
+
+export type ImgDiffFunc = (imgPath1: string,
+  imgPath2: string,
+  diffImagePath?: string) => Promise<number>;
 
 export class JsonAnalyzer {
   perfJson: any;
   snapshots: SnapShot[];
+  imgDiffFunc: ImgDiffFunc;
 
-  constructor(jsonPath: string) {
-    this.perfJson = require(jsonPath);
+  constructor(perfJson: any, imgDiffFunc: ImgDiffFunc ) {
+    this.imgDiffFunc = imgDiffFunc;
+    this.perfJson = perfJson;
     this.snapshots = this.perfJson.traceEvents.filter((data: any) => {
       if ('snapshot' in data.args) {
         return data;
@@ -34,7 +40,7 @@ export class JsonAnalyzer {
     // 最後の１枚と画像ファイルを後ろから順番に比較
     const asyncFuncs = this.snapshots.map((_, index) => async () => {
       const currentIndex = finalIndex - index;
-      const result = await imgDiff(
+      const result = await this.imgDiffFunc(
         final,
         `${outDirDist}/${currentIndex}.jpeg`,
         `${outDirDiff}/${finalIndex}-${currentIndex}.jpeg`,
@@ -46,7 +52,7 @@ export class JsonAnalyzer {
     });
   
     await syncronize(asyncFuncs);
-    const completeRender = firstMismatchedIndex === -1 
+    const completeRender = firstMismatchedIndex === this.snapshots.length - 1
      ? this.snapshots[this.snapshots.length - 1] // 全ての画像で差分が出たら最後のsnapshotと比較
      : this.snapshots[firstMismatchedIndex + 1];
     
@@ -61,4 +67,8 @@ export class JsonAnalyzer {
     });
     return clickEvents
   }
+}
+
+export function createJsonAnalyzer(perfJson: any) {
+  return new JsonAnalyzer(perfJson, imgDiff);
 }

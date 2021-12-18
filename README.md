@@ -3,6 +3,14 @@
 Provides tool for audit rendering performance.  
 It doesn't require any modification for target Web site. 
 
+## Features
+- Measure the time required for screen transitions.
+- Enable audit CSR performance.
+- No need to modify target website.
+- Image-based determination of rendering completion.
+- Easily compare multiple website.
+- Puppeteer-based testing scenario.
+
 ## <a name='ToC'></a>ToC
 * [Getting started](#Gettingstarted)
 * [How to use it?](#Howtouseit)
@@ -47,6 +55,13 @@ module.exports = new Scenario({
   name: 'exampleScenario',
   outDir: 'example/moreInfo',
   startUrl: 'https://example.com/',
+  /*
+  prepare: async (page) => {
+    await page.type('#userIdInput', 'userId');
+    await page.type('#passwordInput', 'password');
+    await page.$('#loginButton').click();
+  }
+  */
   triger: async (page) => {
     const link = await page.$('a');
     if(!link) return console.error('link was not found')
@@ -59,6 +74,9 @@ module.exports = new Scenario({
 - `startUrl` is start point of audit.
 - `prepare` is callback function (optional). This function will be called before `triger` callback. Usualy, it is useful for authentication.
 - `triger` is callback function.  rendering-timer lunch puppeteer with `startUrl` then, call `prepare` callback and `triger` callback. After exit `triger` callback, rendering-timer start to collect performance timeline.
+
+`triger` and `prepare` recieve page object of puppeteer. So, you can use puppeteer APIs.  
+See [puppeteer docs](https://github.com/puppeteer/puppeteer).
 
 ## <a name='CLIUsage'></a>CLI Usage
 

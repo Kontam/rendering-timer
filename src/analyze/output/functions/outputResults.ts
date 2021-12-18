@@ -1,5 +1,5 @@
 import Table from 'cli-table3';
-import {ScenarioResult} from '../../types';
+import {ScenarioResult} from '../../../types';
 
 export function outputResuts(results: ScenarioResult[]) {
   const lengths = results.map(result => result.data.length);

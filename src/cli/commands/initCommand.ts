@@ -21,6 +21,13 @@ module.exports = new Scenario({
   name: 'exampleScenario',
   outDir: 'example/moreInfo',
   startUrl: 'https://example.com/',
+  /*
+  prepare: async (page) => {
+    await page.type('#userIdInput', 'userId');
+    await page.type('#passwordInput', 'password');
+    await page.$('#loginButton').click();
+  }
+  */
   triger: async (page) => {
     const link = await page.$('a');
     if(!link) return console.error('link was not found')

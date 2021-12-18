@@ -29,6 +29,11 @@ export const runAudit = async (args: arg.Result<any>) => {
     );
   }
   const scenarios: string[] = getScenarios(ABSOLUTE_SCENARIO_DIR);
+  if (scenarios.length === 0) {
+    console.log(
+      `Create scenario before run audit command.
+Run init command to create example scenario.\n`);
+  }
   const asyncFuncs: Array<() => Promise<void>> = [];
   scenarios.forEach((sc) => {
     for (let i = 0; i < times; i++) {
