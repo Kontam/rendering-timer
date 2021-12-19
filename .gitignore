@@ -1,7 +1,7 @@
 dist
 diff
 archive
-output
+./output
 timeline/**/*.json
 node_modules
 lib
